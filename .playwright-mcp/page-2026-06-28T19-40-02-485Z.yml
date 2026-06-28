@@ -1,0 +1,59 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e6]:
+        - generic [ref=e7]: Loading
+        - progressbar [ref=e8]
+      - main [ref=e15]:
+        - generic [ref=e16]:
+          - generic [ref=e18]:
+            - generic [ref=e19]:
+              - img [ref=e21]
+              - generic [ref=e26]: Sign in with Google
+            - img "Expo" [ref=e27]
+          - generic [ref=e28]:
+            - heading "Choose an account" [level=1] [ref=e29]
+            - generic [ref=e31]:
+              - text: to continue to
+              - button "Expo" [ref=e32] [cursor=pointer]
+        - generic [ref=e35]:
+          - list [ref=e43]:
+            - listitem [ref=e44]:
+              - link "Flaura Saransh flaurasaransh@gmail.com" [ref=e45] [cursor=pointer]:
+                - generic [ref=e49]:
+                  - generic [ref=e50]: Flaura Saransh
+                  - generic [ref=e51]: flaurasaransh@gmail.com
+            - listitem [ref=e52]:
+              - link "Use another account" [ref=e53] [cursor=pointer]:
+                - generic [ref=e54]:
+                  - img [ref=e56]
+                  - generic [ref=e59]: Use another account
+          - generic [ref=e62]:
+            - text: Before using this app, you can review Expo’s
+            - link "Privacy Policy" [ref=e63] [cursor=pointer]:
+              - /url: https://expo.dev/privacy
+            - text: and
+            - link "Terms of Service" [ref=e64] [cursor=pointer]:
+              - /url: https://expo.dev/terms
+            - text: .
+    - contentinfo [ref=e69]:
+      - combobox "Change language English (United Kingdom)" [ref=e73] [cursor=pointer]:
+        - generic:
+          - generic: English (United Kingdom)
+        - generic:
+          - img
+      - list [ref=e75]:
+        - listitem [ref=e76]:
+          - link "Open Google Account Help Centre (external, opens in a new window)" [ref=e77] [cursor=pointer]:
+            - /url: https://support.google.com/accounts?hl=en-GB&p=account_iph
+            - text: Help
+        - listitem [ref=e78]:
+          - link "Privacy Policy (external, opens in a new window)" [ref=e79] [cursor=pointer]:
+            - /url: https://accounts.google.com/TOS?loc=IN&hl=en-GB&privacy=true
+            - text: Privacy
+        - listitem [ref=e80]:
+          - link "Google Terms of Service (external, opens in a new window)" [ref=e81] [cursor=pointer]:
+            - /url: https://accounts.google.com/TOS?loc=IN&hl=en-GB
+            - text: Terms
+  - iframe [ref=e82]:
+    

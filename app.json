@@ -6,11 +6,15 @@
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
     "scheme": "realtimechat",
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "plugins": [
       [
         "expo-image-picker",
-        { "photosPermission": "Allow Realtime Chat to access your photos so you can share images." }
+        {
+          "photosPermission": "Allow Realtime Chat to access your photos so you can share images."
+        }
       ],
       "expo-notifications"
     ],
@@ -19,10 +23,19 @@
       "bundleIdentifier": "com.ishika.realtimechat"
     },
     "android": {
-      "package": "com.ishika.realtimechat"
+      "package": "com.ishika.realtimechat",
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "bundler": "metro"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "62a31e01-f3a8-4c7b-8ddd-210582cbd9e1"
+      }
+    },
+    "owner": "flourasaransh"
   }
 }

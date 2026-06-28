@@ -1,0 +1,216 @@
+- generic:
+  - generic:
+    - generic:
+      - generic:
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - button:
+                  - img
+                - generic:
+                  - button:
+                    - generic:
+                      - generic:
+                        - img
+                  - button:
+                    - img
+            - generic:
+              - generic:
+                - button:
+                  - generic:
+                    - img
+                    - paragraph: flourasaransh
+                  - generic:
+                    - img
+              - generic:
+                - button:
+                  - generic:
+                    - generic:
+                      - img
+                    - paragraph: Create new project
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - link:
+                        - /url: /accounts/flourasaransh
+                        - generic:
+                          - img
+                          - paragraph: Overview
+                    - generic:
+                      - link:
+                        - /url: /accounts/flourasaransh/snacks
+                        - generic:
+                          - img
+                          - paragraph: Snacks
+                    - generic:
+                      - link:
+                        - /url: /accounts/flourasaransh/settings/usage
+                        - generic:
+                          - img
+                          - paragraph: Usage
+                    - generic:
+                      - link:
+                        - /url: /accounts/flourasaransh/settings/runners
+                        - generic:
+                          - img
+                          - paragraph: Runners
+                  - generic:
+                    - paragraph: Account
+                    - generic:
+                      - link:
+                        - /url: /accounts/flourasaransh/settings/members
+                        - generic:
+                          - img
+                          - paragraph: Members
+                    - generic:
+                      - link:
+                        - /url: /accounts/flourasaransh/settings/environment-variables
+                        - generic:
+                          - img
+                          - paragraph: Environment variables
+                  - generic:
+                    - paragraph: Subscription
+                    - generic:
+                      - link:
+                        - /url: /accounts/flourasaransh/settings/billing
+                        - generic:
+                          - img
+                          - paragraph: Billing
+                    - generic:
+                      - link:
+                        - /url: /accounts/flourasaransh/settings/receipts
+                        - generic:
+                          - img
+                          - paragraph: Receipts
+                  - generic:
+                    - paragraph: Credentials
+                    - generic:
+                      - link:
+                        - /url: /accounts/flourasaransh/settings/credentials
+                        - generic:
+                          - paragraph: Android & iOS credentials
+                    - generic:
+                      - link:
+                        - /url: /accounts/flourasaransh/settings/access-tokens
+                        - generic:
+                          - paragraph: Access tokens
+                    - generic:
+                      - link:
+                        - /url: /accounts/flourasaransh/settings/apple-devices
+                        - generic:
+                          - paragraph: Apple devices
+                  - generic:
+                    - paragraph: Settings
+                    - generic:
+                      - link:
+                        - /url: /accounts/flourasaransh/settings
+                        - generic:
+                          - paragraph: Account settings
+                    - generic:
+                      - link:
+                        - /url: /accounts/flourasaransh/settings/email-notifications
+                        - generic:
+                          - paragraph: Email notifications
+            - generic:
+              - generic:
+                - button:
+                  - generic:
+                    - img
+                    - paragraph: flourasaransh
+                  - generic:
+                    - img
+      - generic:
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - heading [level=1]: Access tokens
+                    - button:
+                      - generic:
+                        - generic:
+                          - img
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+                        - heading [level=4]: Personal access tokens
+                    - button [disabled]:
+                      - img
+                      - generic:
+                        - generic: Create token
+                - generic:
+                  - generic:
+                    - generic:
+                      - paragraph: There are no personal access tokens yet
+                      - paragraph: Click "Create token" to generate a new one.
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - heading [level=3]: Robot users
+                    - paragraph: Create, revoke, or delete access tokens for the robot users below
+                  - button:
+                    - img
+                    - generic:
+                      - generic: Add robot
+                - generic:
+                  - generic:
+                    - generic:
+                      - paragraph: No robot users
+                      - paragraph: Create a new robot user for each application that will manage projects under flourasaransh account.
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - img
+                      - heading [level=3]: Additional settings
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - heading [level=4]: Enhanced Security for Push Notifications
+                        - paragraph: Require access tokens before delivering notifications to your end users.
+                      - switch
+                  - generic:
+                    - paragraph: Create an active Access Token before enabling this feature.
+  - alert
+  - generic [ref=e216]:
+    - generic [ref=e209]:
+      - text: We use cookies to collect data and improve our services.
+      - link [ref=e217] [cursor=pointer]:
+        - /url: https://expo.dev/privacy/cookies
+        - text: Learn more
+    - generic [ref=e211]:
+      - generic [ref=e212]:
+        - button [ref=e218] [cursor=pointer]: Decline
+        - button [ref=e219] [cursor=pointer]: Accept
+      - button [ref=e220] [cursor=pointer]: Customize
+  - dialog "Create token" [ref=e223]:
+    - paragraph [ref=e224]
+    - generic [ref=e226]:
+      - heading "Create token" [level=2] [ref=e228]:
+        - generic [ref=e229]:
+          - generic [ref=e231]:
+            - img [ref=e232]
+            - heading "Create token" [level=3] [ref=e235]
+          - button [ref=e236] [cursor=pointer]:
+            - img [ref=e237]
+      - generic [ref=e241]:
+        - generic [ref=e243]:
+          - generic [ref=e245]: Token name
+          - paragraph [ref=e246]: Give your token a human-readable name so that you can recognize it when it is used.
+        - textbox "Token name Give your token a human-readable name so that you can recognize it when it is used." [active] [ref=e249]
+      - generic [ref=e251]:
+        - button "Generate new token" [ref=e252] [cursor=pointer]:
+          - generic [ref=e254]: Generate new token
+        - button "Cancel" [ref=e255] [cursor=pointer]:
+          - generic [ref=e257]: Cancel

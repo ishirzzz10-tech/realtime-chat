@@ -1,0 +1,71 @@
+- generic [ref=e3]:
+  - generic [ref=e4]:
+    - generic [ref=e6]:
+      - generic [ref=e7]: Loading
+      - progressbar [ref=e8]
+    - main [ref=e15]:
+      - generic [ref=e16]:
+        - generic [ref=e18]:
+          - generic [ref=e19]:
+            - img [ref=e21]
+            - generic [ref=e26]: Sign in with Google
+          - img "Expo" [ref=e27]
+        - generic [ref=e28]:
+          - heading "Sign in to Expo" [level=1] [ref=e29]
+          - link "flaurasaransh@gmail.com selected. Switch account" [ref=e31] [cursor=pointer]:
+            - generic [ref=e34]: flaurasaransh@gmail.com
+            - img [ref=e36]
+      - generic [ref=e45]:
+        - generic [ref=e46]:
+          - heading "Google will allow Expo to access this info about you" [level=2] [ref=e48]:
+            - generic [ref=e49]: Google will allow Expo to access this info about you
+          - list [ref=e53]:
+            - listitem [ref=e54]:
+              - generic [ref=e55]:
+                - img [ref=e57]
+                - generic [ref=e59]:
+                  - generic [ref=e60]: flaurasaransh@gmail.com
+                  - generic [ref=e61]: Email address
+        - generic [ref=e64]:
+          - generic [ref=e65]:
+            - text: Review Expo's
+            - link "Privacy Policy" [ref=e66] [cursor=pointer]:
+              - /url: https://expo.dev/privacy
+            - text: and
+            - link "Terms of Service" [ref=e67] [cursor=pointer]:
+              - /url: https://expo.dev/terms
+            - text: to understand how Expo will process and protect your data.
+          - generic [ref=e68]:
+            - text: To make changes at any time, go to your
+            - link "Google Account settings (external, opens in a new window)" [ref=e69] [cursor=pointer]:
+              - /url: https://myaccount.google.com/connections#filter=4
+              - text: Google Account
+            - text: .
+          - generic [ref=e70]:
+            - text: Learn more about
+            - link "Learn more about Sign in with Google (external, opens in a new window)" [ref=e71] [cursor=pointer]:
+              - /url: https://support.google.com/accounts/answer/12921417?sjid=1919169284593837430-NC
+              - text: Sign in with Google
+            - text: .
+      - generic [ref=e74]:
+        - button "Cancel" [ref=e78]: Cancel
+        - button "Continue" [ref=e84]: Continue
+  - contentinfo [ref=e90]:
+    - combobox "Change language English (United Kingdom)" [ref=e94] [cursor=pointer]:
+      - generic:
+        - generic: English (United Kingdom)
+      - generic:
+        - img
+    - list [ref=e96]:
+      - listitem [ref=e97]:
+        - link "Open Google Account Help Centre (external, opens in a new window)" [ref=e98] [cursor=pointer]:
+          - /url: https://support.google.com/accounts?hl=en-GB&p=account_iph
+          - text: Help
+      - listitem [ref=e99]:
+        - link "Privacy Policy (external, opens in a new window)" [ref=e100] [cursor=pointer]:
+          - /url: https://accounts.google.com/TOS?loc=IN&hl=en-GB&privacy=true
+          - text: Privacy
+      - listitem [ref=e101]:
+        - link "Google Terms of Service (external, opens in a new window)" [ref=e102] [cursor=pointer]:
+          - /url: https://accounts.google.com/TOS?loc=IN&hl=en-GB
+          - text: Terms
