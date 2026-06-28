@@ -1,0 +1,21 @@
+{
+  "expo": {
+    "name": "Realtime Chat",
+    "slug": "realtime-chat",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "scheme": "realtimechat",
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ishika.realtimechat"
+    },
+    "android": {
+      "package": "com.ishika.realtimechat"
+    },
+    "web": {
+      "bundler": "metro"
+    }
+  }
+}

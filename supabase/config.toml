@@ -1,0 +1,9 @@
+# Minimal Supabase CLI config. Replace the project_id with your project ref
+# (Dashboard URL: https://supabase.com/dashboard/project/<project-ref>).
+#
+# If the CLI ever complains this file is incomplete, just run `supabase init`
+# in this folder to regenerate a full config (keep the [functions] block below).
+project_id = "your-project-ref"
+
+[functions.send-message]
+verify_jwt = false
