@@ -1,159 +1,137 @@
 # ⚡ Realtime Chat
 
-A polished **realtime chat app** built with **Expo (React Native)** and **Supabase**.
-No custom backend server — Supabase provides the database and the Realtime
-service. Runs on Android & iOS through the free **Expo Go** app.
+A full **realtime messenger** built with **Expo (React Native)** and **Supabase** —
+private DMs, group channels, reactions, read receipts, image sharing, and
+**push notifications when the app is closed**. No custom backend server: Supabase
+provides the database, auth, realtime, storage, and serverless functions.
 
 | | |
 |---|---|
-| **Frontend** | Expo / React Native |
-| **Backend** | Supabase (Postgres + Realtime + Edge Functions) |
-| **Sign-in** | Username only — pick a name and chat |
-| **Realtime** | Live messages, online presence, typing indicator |
+| **Frontend** | Expo / React Native + React Navigation |
+| **Backend** | Supabase (Postgres + Auth + Realtime + Storage + Edge Functions) |
+| **Sign-in** | Anonymous Auth — just pick a username (a real `auth.uid()` under the hood) |
+| **Privacy** | DMs enforced private by Row Level Security (not just the UI) |
 
 ---
 
 ## ✨ Features
 
-- **Live messages** — new messages appear instantly on every device (Supabase Realtime / Postgres changes).
-- **Online presence** — see who's currently in the room (Supabase Realtime Presence).
-- **Typing indicator** — animated dots when someone else is typing (Supabase Realtime Broadcast).
-- **Username login** — no passwords; a stable device id keeps "you" as you.
-- **Polished UI** — gradient header, colored avatars, chat bubbles, keyboard-aware composer, dark theme.
-- **Graceful setup** — until Supabase credentials are added, the app shows a friendly "Connect Supabase" screen instead of crashing.
+- 🔎 **Find anyone** — search any user by username and start a private 1:1 **DM**.
+- #️⃣ **Channels** — create / browse / join group channels; everyone joins **#general**.
+- 💬 **Live messages** — instant delivery via Supabase Realtime (Postgres changes).
+- 🟢 **Presence & typing** — see who's online and who's typing.
+- 😀 **Reactions + edit/delete** — long-press a message to react, edit, or delete.
+- ✓✓ **Read receipts + unread badges** — "seen" ticks in DMs, unread counts on the list.
+- 🖼️ **Image sharing** — send photos (stored in a private Storage bucket, served via signed URLs).
+- 🔔 **Push notifications** — get notified of new messages even when the app is closed.
 
 ---
 
-## 🚀 Quick start
+## 🚀 Setup
 
-### 1. Install dependencies
+### 1. Install
 ```bash
 cd D:\Ishika
 npm install
 ```
 
-### 2. Create the Supabase backend
-1. Make a free project at **[supabase.com](https://supabase.com)**.
-2. Open **SQL Editor → New query**, paste the contents of
-   [`supabase/migrations/0001_init.sql`](supabase/migrations/0001_init.sql), and **Run**.
-   (Creates the `messages` table, security policies, and turns on Realtime.)
+### 2. Supabase project
+The database is already provisioned for the linked project. To set up a fresh
+project, run the SQL files in `supabase/migrations/` **in order** (Dashboard →
+SQL Editor, or `supabase db push`):
+`0001` → `0002` → `0003` → `0004`.
 
-### 3. Add your credentials
-Open **Project Settings → API** and copy the **Project URL** and the **anon public** key
-into the `.env` file:
+Then enable two things in the Dashboard:
+- **Authentication → Sign In / Providers → Anonymous → ON**  *(required — the app signs in anonymously)*
+- The `chat-images` Storage bucket and push trigger are created by the migrations.
+
+### 3. Credentials
+Put your Project URL + anon key in `.env` (Dashboard → Project Settings → API):
 ```env
 EXPO_PUBLIC_SUPABASE_URL=https://YOUR-REF.supabase.co
-EXPO_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOi...your-anon-key...
+EXPO_PUBLIC_SUPABASE_ANON_KEY=eyJhbGci...
 ```
 
-### 4. Run it
+### 4. Run
 ```bash
-npx expo start
+npx expo start            # then scan the QR with Expo Go
 ```
-Open **Expo Go** on your phone and scan the QR code (or press `a` for an Android
-emulator / `i` for an iOS simulator).
+Open it on **two devices** to watch DMs, presence, typing, receipts, and reactions live.
 
-> 💡 Open the app on **two phones** (or a phone + an emulator) to watch messages,
-> presence, and the typing indicator update live.
-
-> ⚠️ After editing `.env`, restart with `npx expo start -c` to clear the cache so
-> the new values are picked up.
+> ⚠️ After editing `.env`, restart with `npx expo start -c`.
 
 ---
 
-## 🧩 How the realtime works
+## 🔔 Push notifications (important)
 
-Supabase Realtime gives us three things over one WebSocket channel (`room:lobby`):
+Real "app is closed" push **requires a build** — they don't fully work in Expo Go
+(removed on SDK 53+). The server side is already done (an Edge Function +
+database trigger send a push to every room member on each new message). To enable
+the client side:
 
-| Capability | Mechanism | Used for |
-|---|---|---|
-| New messages | **Postgres Changes** (`INSERT` on `messages`) | Delivering chat messages live |
-| Who's online | **Presence** | The "N online" header |
-| Typing dots | **Broadcast** (ephemeral event) | "X is typing…" |
+1. **Get an EAS project id** (writes it into `app.json`):
+   ```bash
+   npm install -g eas-cli
+   eas login
+   eas init
+   ```
+2. **Build the app** (see below). On first launch the app asks for notification
+   permission and registers an Expo push token in the `push_tokens` table.
 
-Messages are stored in Postgres; presence and typing are ephemeral (not saved).
-
----
-
-## 🛠 Optional: send via the Edge Function
-
-By default the app inserts messages directly (simplest, works as soon as the SQL
-is run). An Edge Function is included if you'd rather route sends through a
-serverless function (validation, moderation, etc.):
-
-```bash
-# one-time
-npm i -g supabase
-supabase login
-supabase link --project-ref YOUR-REF
-
-# deploy
-supabase functions deploy send-message --no-verify-jwt
-```
-Then set `EXPO_PUBLIC_USE_EDGE_FUNCTION=true` in `.env` and restart.
+- **Android** → works out of the box once built with EAS (Expo configures FCM).
+- **iOS** → additionally requires a paid **Apple Developer account** to send push.
 
 ---
 
 ## 📦 Build an installable APK
-
-Expo Go is great for development, but to **install/share a standalone app** you
-build an APK. Easiest way is **EAS Build** (cloud — no Android Studio needed).
-
-> ⚠️ **Add your Supabase creds first.** They're baked in at build time. Put them
-> in the `preview` profile's `env` block in `eas.json` (the anon key is a public
-> client key, safe to embed). An APK built with blank creds can't connect.
-
 ```bash
-# 1. one-time
-npm install -g eas-cli
-eas login                      # free Expo account (run this yourself)
-
-# 2. fill in eas.json -> build.preview.env with your real URL + anon key
-
-# 3. build an APK in the cloud (~10-15 min)
+# fill eas.json -> build.preview.env with your URL + anon key first
 eas build -p android --profile preview
 ```
-EAS prints a download link when done. Open it on the Android phone, tap the APK,
-allow "install from unknown sources", and it installs like a normal app.
-
-**Local alternative** (needs Android Studio + JDK + Android SDK installed):
-```bash
-npx expo run:android        # builds & installs a debug APK on a connected device/emulator
-```
-
-> iOS note: a shareable `.ipa` requires an Apple Developer account ($99/yr) and
-> `eas build -p ios`. For iPhones during development, Expo Go is the easy path.
+EAS returns a download link; install the APK on the phone. (This build is also
+what makes push notifications fully work.)
 
 ---
 
-## 📁 Project structure
+## 🧱 Architecture
 
 ```
-App.js                        App entry: device identity + screen routing
-index.js                      Registers the root component
+Auth        Anonymous sign-in -> profiles (searchable user directory)
+Rooms       rooms (kind = 'dm' | 'channel') + room_members (+ last_read_at)
+Messages    messages (room_id, sender_id, content, image_path, edited_at, deleted_at)
+Reactions   reactions (message_id, user_id, emoji)
+Realtime    one channel per room: postgres_changes + presence + broadcast(typing)
+Privacy     RLS via a SECURITY DEFINER is_room_member() helper (no recursion)
+Storage     private 'chat-images' bucket, room-scoped policies, signed URLs
+Push        messages INSERT -> pg_net trigger -> notify-on-message Edge Function -> Expo Push API
+```
+
+### Project structure
+```
+App.js                       Auth gate + navigation stack
 lib/
-  supabase.js                 Supabase client (AsyncStorage + url polyfill)
-  colors.js                   Theme + avatar colors
-components/
-  NameGate.js                 "Pick a display name" screen
-  Setup.js                    Shown until Supabase creds are added
-  ChatScreen.js               Header + message list + composer + realtime
-  MessageBubble.js            Single message bubble
-  TypingIndicator.js          Animated typing dots
+  supabase.js                Supabase client (AsyncStorage + url polyfill)
+  auth.js                    AuthProvider: anonymous sign-in + profile
+  api.js                     Data layer: rooms, messages, reactions, images
+  notifications.js           Expo push registration + tap handling
+  colors.js                  Theme + avatar colors
+components/                  Avatar, NameGate, RoomListItem, MessageBubble,
+                             Composer, MessageActionsSheet, TypingIndicator, Setup
+screens/                     Conversations, Search (people/channels), ChatRoom, Profile
 supabase/
-  migrations/0001_init.sql    Table + RLS + realtime (run this)
-  functions/send-message/     Optional Edge Function
-  config.toml                 Supabase CLI config
+  migrations/0001..0004.sql  Schema, RLS, RPCs, storage, push trigger
+  functions/notify-on-message/  Push Edge Function
 ```
 
 ---
 
-## 🔒 A note on security
+## 🔒 Security
 
-The demo uses **open RLS policies** (anyone with the anon key can read/post),
-which is fine for a username-only class project. To make it production-grade,
-add Supabase Auth and tighten the policies in `0001_init.sql` to check
-`auth.uid()`.
+DMs are **genuinely private**: Row Level Security only lets a user read messages,
+members, reactions, and images for rooms they belong to — enforced by the
+database, so even a direct API call with someone else's token can't read your DMs.
+The membership check uses a `SECURITY DEFINER` helper kept out of the public API,
+and the API RPCs are authenticated-only.
 
 ---
 

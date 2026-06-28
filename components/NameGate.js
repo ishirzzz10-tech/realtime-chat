@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import {
+  ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
@@ -9,11 +10,29 @@ import {
   View,
 } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
-import { theme, avatarColor } from '../lib/colors'
+import { theme } from '../lib/colors'
+import { useAuth } from '../lib/auth'
+import Avatar from './Avatar'
 
-export default function NameGate({ onJoin }) {
+export default function NameGate() {
+  const { signInWithUsername } = useAuth()
   const [name, setName] = useState('')
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState('')
   const trimmed = name.trim()
+
+  async function join() {
+    if (!trimmed || busy) return
+    setBusy(true)
+    setError('')
+    try {
+      await signInWithUsername(trimmed)
+      // On success this screen unmounts (profile becomes set).
+    } catch (e) {
+      setError(e.message || 'Could not sign in')
+      setBusy(false)
+    }
+  }
 
   return (
     <LinearGradient colors={[theme.bgFrom, theme.bgTo]} style={styles.fill}>
@@ -24,38 +43,34 @@ export default function NameGate({ onJoin }) {
         <View style={styles.card}>
           <Text style={styles.logo}>⚡</Text>
           <Text style={styles.title}>Realtime Chat</Text>
-          <Text style={styles.subtitle}>Pick a display name to join the room.</Text>
+          <Text style={styles.subtitle}>Pick a username. Others can find you by it.</Text>
 
-          {trimmed ? (
-            <View style={[styles.avatar, { backgroundColor: avatarColor(trimmed) }]}>
-              <Text style={styles.avatarText}>{trimmed[0].toUpperCase()}</Text>
-            </View>
-          ) : (
-            <View style={[styles.avatar, styles.avatarEmpty]}>
-              <Text style={styles.avatarText}>?</Text>
-            </View>
-          )}
+          <Avatar name={trimmed || '?'} size={76} style={styles.avatar} />
 
           <TextInput
             style={styles.input}
             value={name}
             onChangeText={setName}
-            placeholder="Your name"
+            placeholder="Your username"
             placeholderTextColor={theme.muted}
             maxLength={40}
             autoFocus
             autoCorrect={false}
+            autoCapitalize="none"
             returnKeyType="go"
-            onSubmitEditing={() => trimmed && onJoin(trimmed)}
+            editable={!busy}
+            onSubmitEditing={join}
           />
 
+          {error ? <Text style={styles.error}>{error}</Text> : null}
+
           <TouchableOpacity
-            style={[styles.button, !trimmed && styles.buttonDisabled]}
-            disabled={!trimmed}
+            style={[styles.button, (!trimmed || busy) && styles.buttonDisabled]}
+            disabled={!trimmed || busy}
             activeOpacity={0.85}
-            onPress={() => onJoin(trimmed)}
+            onPress={join}
           >
-            <Text style={styles.buttonText}>Join chat</Text>
+            {busy ? <ActivityIndicator color="#fff" /> : <Text style={styles.buttonText}>Join chat</Text>}
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
@@ -79,17 +94,8 @@ const styles = StyleSheet.create({
   },
   logo: { fontSize: 48, marginBottom: 4 },
   title: { fontSize: 26, fontWeight: '800', color: theme.text, marginBottom: 6 },
-  subtitle: { fontSize: 14, color: theme.muted, marginBottom: 24, textAlign: 'center' },
-  avatar: {
-    width: 72,
-    height: 72,
-    borderRadius: 36,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 22,
-  },
-  avatarEmpty: { backgroundColor: theme.surface2 },
-  avatarText: { color: '#fff', fontSize: 30, fontWeight: '700' },
+  subtitle: { fontSize: 14, color: theme.muted, marginBottom: 22, textAlign: 'center' },
+  avatar: { marginBottom: 22 },
   input: {
     width: '100%',
     backgroundColor: theme.surface,
@@ -100,8 +106,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     borderWidth: 1,
     borderColor: theme.border,
-    marginBottom: 16,
+    marginBottom: 12,
   },
+  error: { color: theme.danger, fontSize: 13, marginBottom: 12, textAlign: 'center' },
   button: {
     width: '100%',
     backgroundColor: theme.accent,

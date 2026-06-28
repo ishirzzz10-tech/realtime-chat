@@ -7,6 +7,13 @@
     "userInterfaceStyle": "dark",
     "scheme": "realtimechat",
     "assetBundlePatterns": ["**/*"],
+    "plugins": [
+      [
+        "expo-image-picker",
+        { "photosPermission": "Allow Realtime Chat to access your photos so you can share images." }
+      ],
+      "expo-notifications"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.ishika.realtimechat"
