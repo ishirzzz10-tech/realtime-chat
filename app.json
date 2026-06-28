@@ -24,6 +24,7 @@
     },
     "android": {
       "package": "com.ishika.realtimechat",
+      "googleServicesFile": "./google-services.json",
       "permissions": [
         "android.permission.RECORD_AUDIO"
       ]

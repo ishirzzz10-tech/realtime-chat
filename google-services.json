@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "79457510168",
+    "project_id": "realtime-chat-aed63",
+    "storage_bucket": "realtime-chat-aed63.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:79457510168:android:fc8e3916f56bf888e5746d",
+        "android_client_info": {
+          "package_name": "com.ishika.realtimechat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbfRbIxxMPWxLxrRCjnlx6QTLEN1Y5Ypc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
