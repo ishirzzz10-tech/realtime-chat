@@ -91,6 +91,12 @@ eas build -p android --profile preview
 EAS returns a download link; install the APK on the phone. (This build is also
 what makes push notifications fully work.)
 
+**📲 Prebuilt APK — ready to install:**
+<https://expo.dev/accounts/flourasaransh/projects/realtime-chat/builds/60efee69-7028-4417-ac67-1f73ef211b7c>
+
+Open that link on an Android phone → **Install / Download** → allow installing
+from "unknown sources". Anyone you share the link with can install it.
+
 ---
 
 ## 🧱 Architecture
@@ -132,6 +138,18 @@ members, reactions, and images for rooms they belong to — enforced by the
 database, so even a direct API call with someone else's token can't read your DMs.
 The membership check uses a `SECURITY DEFINER` helper kept out of the public API,
 and the API RPCs are authenticated-only.
+
+---
+
+## 📑 Report & presentation
+
+A full project report and a slide deck for this project live in **`report/`**:
+
+- 📄 **`Realtime-Chat-Report.pdf`** — 49-page project report (introduction, literature
+  review, requirements, system design with diagrams, implementation, testing,
+  deployment, and conclusion).
+- 📊 **`Realtime-Chat-Presentation.pptx`** — 18-slide presentation deck covering the
+  same story end to end.
 
 ---
 
